@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+
+                    },
+                },
+                screens: {
+                    'desktop': { 'max': '1366px' },
+                    'tablet': { 'max': '1000px' },
+                    'mobile': { 'max': '450px' },
+                    'breakPoint': { 'max': '74rem' },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-[#313E51] h-screen w-screen flex flex-col gap-y-10 items-center justify-center">
+    <p class="absolute bottom-2 right-2 text-white">coded by : <a class="text-violet-500 hover:text-violet-200" href="https://www.facebook.com/alupihang.dagat.142/">realxnogga</a></p>
+    <div id="proressBarCon" class="w-[70rem] breakPoint:w-[80%] flex flex-col items-end">
+        <label for="progress" class="text-white font-semibold"><span id="counter">0</span>/5</label>
+        <progress id="progress" value="" max="5" class="h-1 w-full"></progress>
+    </div>
+    <h2 id="a"></h2>
+
+    <main
+        class="relative h-fit w-[70rem] grid grid-cols-2 breakPoint:grid-cols-1  breakPoint:w-[80%] breakPoint:gap-y-[2rem]">
+
+        <div id="div1" class="text-white text-[2rem]">
+            <h3 class="text-gray-300 text-[3.5rem] mobile:text-[2.5rem]">Welcome to the <br><span
+                    class="text-white font-semibold">Frontend
+                    quiz!</span></h3>
+            <p class="text-gray-300">Pick a subject to get started.</p>
+
+        </div>
+        <div id="div2" class="[&>div]:hover:cursor-pointer text-white flex flex-col gap-y-5">
+            <div data-page="html"
+                class="click bg-[#3C4C67] hover:bg-[#5f7292] rounded-lg p-5 w-full flex items-center gap-x-5">
+                <div id="img1" class="bg-[#FFF3EE] h-[3rem] w-[3rem] rounded-md flex items-center justify-center">
+                    <img src="assets/icons/html5.svg" alt="">
+                </div>
+                <h3>HTML</h3>
+            </div>
+
+            <div data-page="css"
+                class="click bg-[#3C4C67] hover:bg-[#5f7292] rounded-lg p-5 w-full flex items-center gap-x-5">
+                <div id="img2" class="bg-[#BACBE1] h-[3rem] w-[3rem] rounded-md flex items-center justify-center">
+                    <img src="assets/icons/css3-alt.svg" alt="">
+                </div>
+                <h3>CSS</h3>
+            </div>
+
+            <div data-page="js"
+                class="click bg-[#3C4C67] hover:bg-[#5f7292] rounded-lg p-5 w-full flex items-center gap-x-5">
+                <div id="img3" class="bg-[#E1D8BC] h-[3rem] w-[3rem] rounded-md flex items-center justify-center">
+                    <img src="assets/icons/square-js.svg" alt="">
+                </div>
+                <h3>Javascript</h3>
+            </div>
+
+            <div data-page="php"
+                class="click bg-[#3C4C67] hover:bg-[#5f7292] rounded-lg p-5 w-full flex items-center gap-x-5">
+                <div id="img4" class="bg-[#DFD9E8] h-[3rem] w-[3rem] rounded-md flex items-center justify-center">
+                    <img src="assets/icons/php.svg" alt="">
+                </div>
+                <h3>PHP</h3>
+            </div>
+        </div>
+        <!-- hidden div -->
+        <div id="hiddenDiv" class="[&>div]:hover:cursor-pointer text-white flex flex-col gap-y-5">
+            <div data-answer="a"
+                class="click bg-[#3C4C67] hover:bg-[#5f7292] rounded-lg p-5 w-full flex items-center gap-x-5">
+                <div id="box1"
+                    class="bg-white h-[3rem] w-[3rem] flex items-center justify-center rounded-md text-black text-2xl">A
+                </div>
+
+                <h3 id="choice1">HTML</h3>
+            </div>
+
+            <div data-answer="b"
+                class="click bg-[#3C4C67] hover:bg-[#5f7292] rounded-lg p-5 w-full flex items-center gap-x-5">
+                <div id="box2"
+                    class="bg-white h-[3rem] w-[3rem] flex items-center justify-center rounded-md text-black text-2xl">B
+                </div>
+                <h3 id="choice2">CSS</h3>
+            </div>
+
+            <div data-answer="c"
+                class="click bg-[#3C4C67] hover:bg-[#5f7292] rounded-lg p-5 w-full flex items-center gap-x-5">
+                <div id="box3"
+                    class="bg-white h-[3rem] w-[3rem] flex items-center justify-center rounded-md text-black text-2xl">C
+                </div>
+                <h3 id="choice3">Javascript</h3>
+            </div>
+
+            <div data-answer="d"
+                class="click bg-[#3C4C67] hover:bg-[#5f7292] rounded-lg p-5 w-full flex items-center gap-x-5">
+                <div id="box4"
+                    class="bg-white h-[3rem] w-[3rem] flex items-center justify-center rounded-md text-black text-2xl">D
+                </div>
+                <h3 id="choice4">PHP</h3>
+            </div>
+
+
+        </div>
+
+    </main>
+
+    <div id="resultDiv"
+        class="hidden relative bg-[#3C4C67] h-[25rem] w-[35rem] max-w-[90%] flex-col items-center justify-center">
+        <h2 class="text-white text-[3rem] font-bold">You Scored <span id="answerCon"></span> / 5</h2>
+        <p id="standing" class="text-white text-2xl font-semibold"></p>
+
+        <button id="playAgain"
+            class="absolute bottom-4 right-4 bg-green-500 hover:bg-green-600 h-[2.5rem] w-[8rem] rounded-md  flex items-center justify-center gap-x-5 cursor-pointer text-white font-semibold">Play
+            Again</button>
+    </div>
+
+    <div id="buttonContainer" class="h-fit w-fit max-w-[90%] flex justify-center"></div>
+
+
+    <script>
+        function loadPage(category) {
+            $.ajax({
+                url: 'question.html',
+                type: 'GET',
+                dataType: 'html',
+                success: function (data) {
+                    const yourAns = []; // declare an array for your answer
+                    if (category === 'html') {
+
+                        var nextButton = $(data).find('#next');
+                        $('#buttonContainer').html(nextButton);
+                        $('#div1').html($(data).find('#htmlQ1'));
+
+                        $('#choice1').html($(data).find('#htmlQ1ChoiceQ1'));
+                        $('#choice2').html($(data).find('#htmlQ1ChoiceQ2'));
+                        $('#choice3').html($(data).find('#htmlQ1ChoiceQ3'));
+                        $('#choice4').html($(data).find('#htmlQ1ChoiceQ4'));
+
+                        const correctAns = ['b', 'a', 'b', 'b', 'c'];
+
+
+                        $('.click').click(function () {
+                            $(this).css('background-color', '#0076B8'); //to set the background color to blue
+                            var temp = $(this).attr('data-answer');
+                            yourAns.push(temp);
+                        })
+
+                        var counter = 1;
+                        $('#counter').text(counter);
+                        $('#progress').val(counter);
+
+                        nextButton.click(function () {
+
+                            $('.click').css('background-color', '#3C4C67'); //to set the background color to default
+                            counter = (++counter);
+                            $('#progress').val(counter);
+                            $('#counter').text(counter);
+
+                            if (counter === 2) {
+                                $('#div1').html($(data).find('#htmlQ2'));
+                                $('#choice1').html($(data).find('#htmlQ2ChoiceQ1'));
+                                $('#choice2').html($(data).find('#htmlQ2ChoiceQ2'));
+                                $('#choice3').html($(data).find('#htmlQ2ChoiceQ3'));
+                                $('#choice4').html($(data).find('#htmlQ2ChoiceQ4'));
+                            }
+                            else if (counter === 3) {
+                                $('#div1').html($(data).find('#htmlQ3'));
+                                $('#choice1').html($(data).find('#htmlQ3ChoiceQ1'));
+                                $('#choice2').html($(data).find('#htmlQ3ChoiceQ2'));
+                                $('#choice3').html($(data).find('#htmlQ3ChoiceQ3'));
+                                $('#choice4').html($(data).find('#htmlQ3ChoiceQ4'));
+                            }
+                            else if (counter === 4) {
+                                $('#div1').html($(data).find('#htmlQ4'));
+                                $('#choice1').html($(data).find('#htmlQ4ChoiceQ1'));
+                                $('#choice2').html($(data).find('#htmlQ4ChoiceQ2'));
+                                $('#choice3').html($(data).find('#htmlQ4ChoiceQ3'));
+                                $('#choice4').html($(data).find('#htmlQ4ChoiceQ4'));
+                            }
+                            else if (counter === 5) {
+                                $('#div1').html($(data).find('#htmlQ5'));
+                                $('#choice1').html($(data).find('#htmlQ5ChoiceQ1'));
+                                $('#choice2').html($(data).find('#htmlQ5ChoiceQ2'));
+                                $('#choice3').html($(data).find('#htmlQ5ChoiceQ3'));
+                                $('#choice4').html($(data).find('#htmlQ5ChoiceQ4'));
+                            }
+                            else if (counter === 6) {
+                                var numberOfCorrectAns = 0;
+                                for (let i = 0; i < 5; i++) {
+                                    if (correctAns[i] === yourAns[i]) {
+                                        numberOfCorrectAns += 1;
+                                    }
+                                }
+
+                                $('#proressBarCon').css('display', 'none');
+                                $('main').css('display', 'none');
+                                $('#buttonContainer').css('display', 'none');
+                                $('#resultDiv').css('display', 'flex');
+                                $('#answerCon').html(numberOfCorrectAns);
+
+                                if (numberOfCorrectAns >= 4) $('#standing').html('Excellent!');
+                                else if (numberOfCorrectAns <= 3 && numberOfCorrectAns >= 1) $('#standing').html('Good!');
+                                else if (numberOfCorrectAns == 0) $('#standing').html('Better luck next time!');
+
+                                $('#playAgain').click(function () {
+                                    window.location.reload(true);
+                                })
+
+
+                            }
+                        });
+
+                    }
+                    else if (category === 'css') {
+
+                        var nextButton = $(data).find('#next');
+                        $('#buttonContainer').html(nextButton);
+                        $('#div1').html($(data).find('#cssQ1'));
+
+                        $('#choice1').html($(data).find('#cssQ1ChoiceQ1'));
+                        $('#choice2').html($(data).find('#cssQ1ChoiceQ2'));
+                        $('#choice3').html($(data).find('#cssQ1ChoiceQ3'));
+                        $('#choice4').html($(data).find('#cssQ1ChoiceQ4'));
+
+                        const correctAns = ['b', 'a', 'b', 'a', 'd'];
+
+                        $('.click').click(function () {
+                            $(this).css('background-color', '#0076B8'); //to set the background color to blue
+                            var temp = $(this).attr('data-answer');
+                            yourAns.push(temp);
+                        })
+
+                        var counter = 1;
+                        $('#counter').text(counter);
+                        $('#progress').val(counter);
+
+                        nextButton.click(function () {
+
+                            $('.click').css('background-color', '#3C4C67'); //to set the background color to default
+                            counter = (++counter);
+                            $('#progress').val(counter);
+                            $('#counter').text(counter);
+
+                            if (counter === 2) {
+                                $('#div1').html($(data).find('#cssQ2'));
+                                $('#choice1').html($(data).find('#cssQ2ChoiceQ1'));
+                                $('#choice2').html($(data).find('#cssQ2ChoiceQ2'));
+                                $('#choice3').html($(data).find('#cssQ2ChoiceQ3'));
+                                $('#choice4').html($(data).find('#cssQ2ChoiceQ4'));
+                            }
+                            else if (counter === 3) {
+                                $('#div1').html($(data).find('#cssQ3'));
+                                $('#choice1').html($(data).find('#cssQ3ChoiceQ1'));
+                                $('#choice2').html($(data).find('#cssQ3ChoiceQ2'));
+                                $('#choice3').html($(data).find('#cssQ3ChoiceQ3'));
+                                $('#choice4').html($(data).find('#cssQ3ChoiceQ4'));
+                            }
+                            else if (counter === 4) {
+                                $('#div1').html($(data).find('#cssQ4'));
+                                $('#choice1').html($(data).find('#cssQ4ChoiceQ1'));
+                                $('#choice2').html($(data).find('#cssQ4ChoiceQ2'));
+                                $('#choice3').html($(data).find('#cssQ4ChoiceQ3'));
+                                $('#choice4').html($(data).find('#cssQ4ChoiceQ4'));
+                            }
+                            else if (counter === 5) {
+                                $('#div1').html($(data).find('#cssQ5'));
+                                $('#choice1').html($(data).find('#cssQ5ChoiceQ1'));
+                                $('#choice2').html($(data).find('#cssQ5ChoiceQ2'));
+                                $('#choice3').html($(data).find('#cssQ5ChoiceQ3'));
+                                $('#choice4').html($(data).find('#cssQ5ChoiceQ4'));
+                            }
+                            else if (counter === 6) {
+                                var numberOfCorrectAns = 0;
+                                for (let i = 0; i < 5; i++) {
+                                    if (correctAns[i] === yourAns[i]) {
+                                        numberOfCorrectAns += 1;
+                                    }
+                                }
+
+                                $('#proressBarCon').css('display', 'none');
+                                $('main').css('display', 'none');
+                                $('#buttonContainer').css('display', 'none');
+                                $('#resultDiv').css('display', 'flex');
+                                $('#answerCon').html(numberOfCorrectAns);
+
+                                if (numberOfCorrectAns >= 4) $('#standing').html('Excellent!');
+                                else if (numberOfCorrectAns <= 3 && numberOfCorrectAns >= 1) $('#standing').html('Good!');
+                                else if (numberOfCorrectAns == 0) $('#standing').html('Better luck next time!');
+
+                                $('#playAgain').click(function () {
+                                    window.location.reload(true);
+                                })
+
+
+                            }
+                        });
+
+                    }
+                    else if (category === 'js') {
+
+                        var nextButton = $(data).find('#next');
+                        $('#buttonContainer').html(nextButton);
+                        $('#div1').html($(data).find('#jsQ1'));
+
+                        $('#choice1').html($(data).find('#jsQ1ChoiceQ1'));
+                        $('#choice2').html($(data).find('#jsQ1ChoiceQ2'));
+                        $('#choice3').html($(data).find('#jsQ1ChoiceQ3'));
+                        $('#choice4').html($(data).find('#jsQ1ChoiceQ4'));
+
+                        const correctAns = ['d', 'b', 'b', 'a', 'b'];
+
+                        $('.click').click(function () {
+                            $(this).css('background-color', '#0076B8'); //to set the background color to blue
+                            var temp = $(this).attr('data-answer');
+                            yourAns.push(temp);
+                        })
+
+                        var counter = 1;
+                        $('#counter').text(counter);
+                        $('#progress').val(counter);
+
+                        nextButton.click(function () {
+
+                            $('.click').css('background-color', '#3C4C67'); //to set the background color to default
+                            counter = (++counter);
+                            $('#progress').val(counter);
+                            $('#counter').text(counter);
+
+                            if (counter === 2) {
+                                $('#div1').html($(data).find('#jsQ2'));
+                                $('#choice1').html($(data).find('#jsQ2ChoiceQ1'));
+                                $('#choice2').html($(data).find('#jsQ2ChoiceQ2'));
+                                $('#choice3').html($(data).find('#jsQ2ChoiceQ3'));
+                                $('#choice4').html($(data).find('#jsQ2ChoiceQ4'));
+                            }
+                            else if (counter === 3) {
+                                $('#div1').html($(data).find('#jsQ3'));
+                                $('#choice1').html($(data).find('#jsQ3ChoiceQ1'));
+                                $('#choice2').html($(data).find('#jsQ3ChoiceQ2'));
+                                $('#choice3').html($(data).find('#jsQ3ChoiceQ3'));
+                                $('#choice4').html($(data).find('#jsQ3ChoiceQ4'));
+                            }
+                            else if (counter === 4) {
+                                $('#div1').html($(data).find('#jsQ4'));
+                                $('#choice1').html($(data).find('#jsQ4ChoiceQ1'));
+                                $('#choice2').html($(data).find('#jsQ4ChoiceQ2'));
+                                $('#choice3').html($(data).find('#jsQ4ChoiceQ3'));
+                                $('#choice4').html($(data).find('#jsQ4ChoiceQ4'));
+                            }
+                            else if (counter === 5) {
+                                $('#div1').html($(data).find('#jsQ5'));
+                                $('#choice1').html($(data).find('#jsQ5ChoiceQ1'));
+                                $('#choice2').html($(data).find('#jsQ5ChoiceQ2'));
+                                $('#choice3').html($(data).find('#jsQ5ChoiceQ3'));
+                                $('#choice4').html($(data).find('#jsQ5ChoiceQ4'));
+                            }
+                            else if (counter === 6) {
+                                var numberOfCorrectAns = 0;
+                                for (let i = 0; i < 5; i++) {
+                                    if (correctAns[i] === yourAns[i]) {
+                                        numberOfCorrectAns += 1;
+                                    }
+                                }
+
+                                $('#proressBarCon').css('display', 'none');
+                                $('main').css('display', 'none');
+                                $('#buttonContainer').css('display', 'none');
+                                $('#resultDiv').css('display', 'flex');
+                                $('#answerCon').html(numberOfCorrectAns);
+
+                                if (numberOfCorrectAns >= 4) $('#standing').html('Excellent!');
+                                else if (numberOfCorrectAns <= 3 && numberOfCorrectAns >= 1) $('#standing').html('Good!');
+                                else if (numberOfCorrectAns == 0) $('#standing').html('Better luck next time!');
+
+                                $('#playAgain').click(function () {
+                                    window.location.reload(true);
+                                })
+
+
+                            }
+                        });
+
+
+                    }
+                    else if (category === 'php') {
+
+                        var nextButton = $(data).find('#next');
+                        $('#buttonContainer').html(nextButton);
+                        $('#div1').html($(data).find('#phpQ1'));
+
+                        $('#choice1').html($(data).find('#phpQ1ChoiceQ1'));
+                        $('#choice2').html($(data).find('#phpQ1ChoiceQ2'));
+                        $('#choice3').html($(data).find('#phpQ1ChoiceQ3'));
+                        $('#choice4').html($(data).find('#phpQ1ChoiceQ4'));
+
+                        const correctAns = ['d', 'c', 'a', 'a', 'b'];
+
+                        $('.click').click(function () {
+                            $(this).css('background-color', '#0076B8'); //to set the background color to blue
+                            var temp = $(this).attr('data-answer');
+                            yourAns.push(temp);
+                        })
+
+                        var counter = 1;
+                        $('#counter').text(counter);
+                        $('#progress').val(counter);
+
+                        nextButton.click(function () {
+
+                            $('.click').css('background-color', '#3C4C67'); //to set the background color to default
+                            counter = (++counter);
+                            $('#progress').val(counter);
+                            $('#counter').text(counter);
+
+                            if (counter === 2) {
+                                $('#div1').html($(data).find('#phpQ2'));
+                                $('#choice1').html($(data).find('#phpQ2ChoiceQ1'));
+                                $('#choice2').html($(data).find('#phpQ2ChoiceQ2'));
+                                $('#choice3').html($(data).find('#phpQ2ChoiceQ3'));
+                                $('#choice4').html($(data).find('#phpQ2ChoiceQ4'));
+                            }
+                            else if (counter === 3) {
+                                $('#div1').html($(data).find('#phpQ3'));
+                                $('#choice1').html($(data).find('#phpQ3ChoiceQ1'));
+                                $('#choice2').html($(data).find('#phpQ3ChoiceQ2'));
+                                $('#choice3').html($(data).find('#phpQ3ChoiceQ3'));
+                                $('#choice4').html($(data).find('#phpQ3ChoiceQ4'));
+                            }
+                            else if (counter === 4) {
+                                $('#div1').html($(data).find('#phpQ4'));
+                                $('#choice1').html($(data).find('#phpQ4ChoiceQ1'));
+                                $('#choice2').html($(data).find('#phpQ4ChoiceQ2'));
+                                $('#choice3').html($(data).find('#phpQ4ChoiceQ3'));
+                                $('#choice4').html($(data).find('#phpQ4ChoiceQ4'));
+                            }
+                            else if (counter === 5) {
+                                $('#div1').html($(data).find('#phpQ5'));
+                                $('#choice1').html($(data).find('#phpQ5ChoiceQ1'));
+                                $('#choice2').html($(data).find('#phpQ5ChoiceQ2'));
+                                $('#choice3').html($(data).find('#phpQ5ChoiceQ3'));
+                                $('#choice4').html($(data).find('#phpQ5ChoiceQ4'));
+                            }
+                            else if (counter === 6) {
+                                var numberOfCorrectAns = 0;
+                                for (let i = 0; i < 5; i++) {
+                                    if (correctAns[i] === yourAns[i]) {
+                                        numberOfCorrectAns += 1;
+                                    }
+                                }
+
+                                $('#proressBarCon').css('display', 'none');
+                                $('main').css('display', 'none');
+                                $('#buttonContainer').css('display', 'none');
+                                $('#resultDiv').css('display', 'flex');
+                                $('#answerCon').html(numberOfCorrectAns);
+
+                                if (numberOfCorrectAns >= 4) $('#standing').html('Excellent!');
+                                else if (numberOfCorrectAns <= 3 && numberOfCorrectAns >= 1) $('#standing').html('Good!');
+                                else if (numberOfCorrectAns == 0) $('#standing').html('Better luck next time!');
+
+                                $('#playAgain').click(function () {
+                                    window.location.reload(true);
+                                })
+
+
+                            }
+                        });
+
+
+
+
+
+
+
+
+                      
+                    }
+
+
+                },
+                error: function () {
+                    $('#div1').html('<p>error loading the page</p>');
+                }
+            })
+        }
+
+        $(document).ready(function () {
+            $('#hiddenDiv').css('display', 'none');
+            $('.click').click(function () {
+                const category = $(this).data('page');
+                loadPage(category);
+
+                $('#hiddenDiv').css('display', 'flex');
+                $('#div2').css('display', 'none');
+            })
+        })
+
+
+    </script>
+
+</body>
+
+</html>
